@@ -1,0 +1,7 @@
+{
+  "name": "cyberroadmap-miniapp",
+  "private": true,
+  "version": "0.1.0",
+  "description": "CyberRoadmap Telegram Mini App",
+  "scripts": {"dev":"npx serve .","start":"npx serve ."}
+}
