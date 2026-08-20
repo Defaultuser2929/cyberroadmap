@@ -1,9 +1,0 @@
-{
-  "name": "cyberroadmap-miniapp",
-  "version": "0.2.0",
-  "private": true,
-  "description": "Cybersecurity learning roadmap Telegram Mini App",
-  "scripts": {
-    "dev": "python -m http.server 8080"
-  }
-}
