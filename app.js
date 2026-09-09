@@ -96,7 +96,7 @@ function lessonCards(q){
  q=(q||"").toLowerCase();
  return lessons.map((l,i)=>({l,i})).filter(x=>(x.l.title+" "+x.l.track+" "+x.l.desc).toLowerCase().includes(q)).map(({l,i})=>{
  const p=lessonProgress(i), locked=i>0&&lessonProgress(i-1)<2;
- return `<section class="card lesson-card ${locked?"locked":""}" onclick="${locked?"toast('Сначала пройди хотя бы 2 этапа предыдущего модуля'):`openLesson(${i})`}">
+ return `<section class="card lesson-card ${locked?"locked":""}" onclick="${locked ? "toast('Сначала пройди хотя бы 2 этапа предыдущего модуля')" : `openLesson(${i})`}">
  <div class="row"><div class="lesson-num">${i+1}</div><span class="tag">${p}/4</span></div><div class="row"><h3>${l.icon} ${esc(l.title)}</h3><span>${p===4?"✅":""}</span></div><p>${esc(l.desc)}</p><div class="bar"><i style="width:${p*25}%"></i></div><div class="muted small">${l.track} · ${p===4?"Завершено":"Продолжить урок"}</div></section>`
  }).join("")||`<div class="card">Ничего не найдено.</div>`;
 }
