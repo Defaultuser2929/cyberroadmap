@@ -148,7 +148,20 @@ function openLesson(i){
 function lessonStage(i,s){window.__lessonIndex=i;window.__lessonStage=s;openLesson(i)}
 function lessonCheck(i,j){state.lessonChecks[`${i}:${j}`]=!state.lessonChecks[`${i}:${j}`];save()}
 function completeStage(i,s){if(!state.done[`${i}:${s}`]){state.done[`${i}:${s}`]=true;updateStreak();save();toast(`+${10+s*5} XP · этап завершён`)}else toast("Этап уже завершён");openLesson(i)}
-function answerQuiz(i,k,btn,chosen,correct){const key=`${i}:3`;document.querySelectorAll(".option").forEach(b=>b.disabled=true);if(chosen===correct){btn.classList.add("correct");state.quiz[key]=(state.quiz[key]||0)+10;save();document.getElementById(`quizmsg${i}_${k}`).textContent="Верно! +10 XP"}else{btn.classList.add("wrong");document.getElementById(`quizmsg${i}_${k}`).textContent=`Неверно. Правильный ответ: ${correct}`}}
+function answerQuiz(i,k,btn,chosen,correct){
+  const key=`${i}:3`;
+  const question=btn.closest(".quiz-q");
+  question.querySelectorAll(".option").forEach(b=>b.disabled=true);
+  if(chosen===correct){
+    btn.classList.add("correct");
+    state.quiz[key]=(state.quiz[key]||0)+10;
+    save();
+    document.getElementById(`quizmsg${i}_${k}`).textContent="Верно! +10 XP";
+  }else{
+    btn.classList.add("wrong");
+    document.getElementById(`quizmsg${i}_${k}`).textContent=`Неверно. Правильный ответ: ${correct}`;
+  }
+}
 function addNote(){const title=document.getElementById("noteTitle").value.trim(),body=document.getElementById("noteBody").value.trim();if(!body){toast("Добавь текст");return}state.notes.unshift({title,body,date:new Date().toLocaleString("ru-RU")});save();render();toast("Заметка сохранена")}
 function deleteNote(i){if(confirm("Удалить заметку?")){state.notes.splice(i,1);save();render()}}
 function openSettings(){openModal(`<h2>Настройки</h2><p class="muted">Прогресс хранится локально и синхронизируется с Telegram/Supabase, если облако доступно.</p><div class="actions"><button class="btn ghost" onclick="exportData()">Экспорт JSON</button><button class="btn" onclick="syncCloud().then(()=>toast('Синхронизация выполнена'))">☁️ Синхронизировать</button><button class="btn danger" onclick="resetAll()">Сбросить локальный прогресс</button></div>`)}
